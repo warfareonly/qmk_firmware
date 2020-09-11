@@ -2,6 +2,8 @@
 
 // generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
 
+#define MIRYOKU_ALPHAS_RSTHD
+
 #pragma once
 
 #define LAYOUT_miryoku(\
