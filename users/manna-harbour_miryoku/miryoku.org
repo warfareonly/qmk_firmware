@@ -120,12 +120,20 @@ included for prose, dot and slash for file and directory names.
 Alternative base layer alphas are provided. To select, append
 e.g. ~MIRYOKU_ALPHAS=QWERTY~ to the make command line when building.
 
+***** RSTHD (RSTHD)
+#+NAME: rsthd
+| J  | C  | Y   | F | K    | Z   | L   | ,   | U  | Q   |
+| R  | S  | T   | H | D    | M   | N   | A   | I  | O   |
+| /  | V  | G   | P | B    | X   | W   | .   | '  | DEL |
+| NP | NP | ESC | E | BSPC | ENT | SPC | TAB | NP | NP  |
+
+
 ***** QWERTY (QWERTY)
 #+NAME: qwerty
-| Q    | W    | E    | R    | T    | Y    | U    | I    | O    | P    |
-| A    | S    | D    | F    | G    | H    | J    | K    | L    | '    |
-| Z    | X    | C    | V    | B    | N    | M    | ,    | .    | /    |
-| NP   | NP   | ESC  | SPC  | TAB  | ENT  | BSPC | DEL  | NP   | NP   |
+| Q  | W  | E   | R   | T   | Y   | U    | I   | O  | P  |
+| A  | S  | D   | F   | G   | H   | J    | K   | L  | '  |
+| Z  | X  | C   | V   | B   | N   | M    | ,   | .  | /  |
+| NP | NP | ESC | SPC | TAB | ENT | BSPC | DEL | NP | NP |
 
 
 ***** Dvorak (DVORAK)
@@ -291,12 +299,14 @@ Produce base layer from separate tap and hold tables.
 #+NAME: table-layout-taphold
 #+BEGIN_SRC python :var layer_name="BASE" :var tap_table=colemakdhm :var hold_table=hold :var symbol_names_table=symbol-names :var mods_list=mods :tangle no :results verbatim
 width = 19
-mods_dict = dict.fromkeys(mods_list)
+mods_list = [x[0] for x in mods_list]
+mods_dict = dict.fromkeys(tuple(mods_list))
 symbol_names_dict = {}
 for symbol, name, shifted_symbol, shifted_name in symbol_names_table:
   symbol_names_dict[symbol] = name
   symbol_names_dict[shifted_symbol] = shifted_name
 results = '  [' + layer_name + '] = LAYOUT_miryoku(\n'
+print(type(results))
 for tap_row, hold_row in map(None, tap_table, hold_table):
   results += '    '
   for tap, hold in map(None, tap_row, hold_row):
@@ -335,7 +345,8 @@ A layer with shifted symbols can also be generated.
 #+NAME: table-layout-half
 #+BEGIN_SRC python :var hold_table=hold :var layer_name="NSL" :var half_table=nsl :var symbol_names_table=symbol-names :var mods_list=mods :var shift="false" :tangle no :results verbatim
 width = 9
-mods_dict = dict.fromkeys(mods_list)
+mods_list = [x[0] for x in mods_list]
+mods_dict = dict.fromkeys(tuple(mods_list))
 symbol_names_dict = {}
 shifted_symbol_names_dict = {}
 for symbol, name, shifted_symbol, shifted_name in symbol_names_table:
@@ -376,7 +387,7 @@ return results
 :   [NSL] = LAYOUT_miryoku(
 :     KC_LBRC, KC_7,    KC_8,    KC_9,    KC_RBRC, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
 :     KC_SCLN, KC_4,    KC_5,    KC_6,    KC_EQL,  KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-:     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_NA,
+:     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_BSLS, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
 :     KC_NP,   KC_NP,   KC_DOT,  KC_0,    KC_MINS, KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
 :   )
 
@@ -424,6 +435,8 @@ Produce layer enums from layer names in hold table.
 
 #+NAME: table-enums
 #+BEGIN_SRC python :var hold_table=hold :var mods_list=mods :tangle no
+
+mods_list = [x[0] for x in mods_list]
 mods_dict = dict.fromkeys(mods_list)
 results = 'enum layers { BASE, MBO, '
 for hold_row in hold_table:
@@ -485,9 +498,11 @@ Modifiers usable in hold table.  Need to have the same name for KC_ and _T versi
 Header for tangled src files.
 
 #+NAME: header
-#+BEGIN_SRC C :tangle no
+#+BEGIN_SRC C :tangle no :main no
 generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
 #+END_SRC
+
+#+RESULTS: header
 
 
 * Subset Mapping
@@ -507,7 +522,7 @@ Keymap-related definitions.  Included from manna-harbour_miryoku.c.  Can be
 included from keymap or layout keymap.c if needed.
 
 [[./manna-harbour_miryoku.h][users/manna-harbour_miryoku/manna-harbour_miryoku.h]]
-#+BEGIN_SRC C :noweb yes :padline no :tangle manna-harbour_miryoku.h
+#+BEGIN_SRC C :noweb yes :padline no :tangle manna-harbour_miryoku.h :main no
 // <<header>>
 
 #pragma once
@@ -529,13 +544,15 @@ included from keymap or layout keymap.c if needed.
 <<table-enums()>>
 #+END_SRC
 
+#+RESULTS:
+
 
 *** manna-harbour_miryoku.c
 
 Contains the keymap.  Added from rules.mk.
 
 [[./manna-harbour_miryoku.c][users/manna-harbour_miryoku/manna-harbour_miryoku.c]]
-#+BEGIN_SRC C :noweb yes :padline no :tangle manna-harbour_miryoku.c
+#+BEGIN_SRC C :noweb yes :padline no :tangle manna-harbour_miryoku.c :main no
 // <<header>>
 
 #include "manna-harbour_miryoku.h"
@@ -549,6 +566,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 <<table-layout-taphold(layer_name="BASE", tap_table=colemak, hold_table=hold)>>,
 #elif defined MIRYOKU_ALPHAS_COLEMAKDH
 <<table-layout-taphold(layer_name="BASE", tap_table=colemakdh, hold_table=hold)>>,
+#elif defined MIRYOKU_ALPHAS_RSTHD
+<<table-layout-taphold(layer_name="BASE", tap_table=rsthd, hold_table=hold)>>,
 #elif defined MIRYOKU_ALPHAS_WORKMAN
 <<table-layout-taphold(layer_name="BASE", tap_table=workman, hold_table=hold)>>,
 #else
@@ -564,13 +583,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 #+END_SRC
 
+#+RESULTS:
+
 
 *** config.h
 
 Config options.  Automatically included.
 
 [[./config.h][users/manna-harbour_miryoku/config.h]]
-#+BEGIN_SRC C :noweb yes :padline no :tangle config.h
+#+BEGIN_SRC C :noweb yes :padline no :tangle config.h :main no
 // <<header>>
 
 #pragma once
@@ -657,7 +678,7 @@ make ergodox_ez:manna-harbour_miryoku:flash
 Contains subset mapping.
 
 [[../../layouts/community/ergodox/manna-harbour_miryoku/config.h][layouts/community/ergodox/manna-harbour_miryoku/config.h]]
-#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ergodox/manna-harbour_miryoku/config.h
+#+BEGIN_SRC C  :main no :noweb yes :padline no :tangle ../../layouts/community/ergodox/manna-harbour_miryoku/config.h
 // <<header>>
 
 #pragma once
@@ -686,7 +707,7 @@ KC_NO, KC_NO, KC_NO, KC_NO, K32,                               K37,   KC_NO, KC_
 Required by the build system.
 
 [[../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c][layouts/community/ergodox/manna-harbour_miryoku/keymap.c]]
-#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c
+#+BEGIN_SRC C :MAIN NO :noweb yes :padline no :tangle ../../layouts/community/ergodox/manna-harbour_miryoku/keymap.c
 // <<header>>
 #+END_SRC
 
@@ -728,7 +749,7 @@ make keebio/levinson:manna-harbour_miryoku:flash MIRYOKU_MAPPING=SPLIT # levinso
 Contains subset mapping.
 
 [[../../layouts/community/ortho_4x12/manna-harbour_miryoku/config.h][layouts/community/ortho_4x12/manna-harbour_miryoku/config.h]]
-#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/config.h
+#+BEGIN_SRC C  :main no :noweb yes :padline no :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/config.h
 // <<header>>
 
 #pragma once
@@ -768,7 +789,7 @@ KC_NO, KC_NO, K32,   K33,   K34,   K34,   K35,   K35,   K36,   K37,   KC_NO, KC_
 Required by the build system.
 
 [[../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c][layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c]]
-#+BEGIN_SRC C :noweb yes :padline no :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c
+#+BEGIN_SRC C :MAIN NO :noweb yes :padline no :tangle ../../layouts/community/ortho_4x12/manna-harbour_miryoku/keymap.c
 // <<header>>
 #+END_SRC
 
@@ -796,7 +817,7 @@ make crkbd:manna-harbour_miryoku:flash
 Contains subset mapping.
 
 [[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h][keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h]]
-#+BEGIN_SRC C :noweb yes :padline no :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h
+#+BEGIN_SRC C :MAIN NO :noweb yes :padline no :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/config.h
 // <<header>>
 
 #pragma once
@@ -821,7 +842,7 @@ KC_NO, K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   KC_
 Required by the build system.
 
 [[../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c][keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c]]
-#+BEGIN_SRC C :noweb yes :padline no :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c
+#+BEGIN_SRC C :MAIN NO :noweb yes :padline no :tangle ../../keyboards/crkbd/keymaps/manna-harbour_miryoku/keymap.c
 // <<header>>
 #+END_SRC
 
@@ -858,3 +879,7 @@ alphas, layouts, or keyboards, please [[https://github.com/manna-harbour/qmk_fir
 For more general discussion, please join a relevant [[https://www.reddit.com/user/manna_harbour/posts/?sort=new][recent thread]] or [[https://www.reddit.com/message/compose/?to=manna_harbour][send a PM]].
 
 [[https://github.com/manna-harbour][https://raw.githubusercontent.com/manna-harbour/miryoku/master/manna-harbour-boa-32.png]]
+
+# Local Variables:
+# org-babel-python-command: "python2"
+# End:

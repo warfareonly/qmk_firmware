@@ -31,6 +31,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Z,              ALGR_T(KC_X),      KC_C,              KC_D,              KC_V,              KC_M,              KC_H,              KC_COMM,           ALGR_T(KC_DOT),    KC_SLSH,
     KC_NP,             KC_NP,             LT(MEDR, KC_ESC),  LT(NAVR, KC_SPC),  LT(MOUR, KC_TAB),  LT(NSSL, KC_ENT),  LT(NSL, KC_BSPC),  LT(FUNL, KC_DEL),  KC_NP,             KC_NP
   ),
+#elif defined MIRYOKU_ALPHAS_RSTHD
+  [BASE] = LAYOUT_miryoku(
+    KC_J,              KC_C,              KC_Y,              KC_F,              KC_K,              KC_Z,              KC_L,              KC_COMM,           KC_U,              KC_Q,
+    LGUI_T(KC_R),      LALT_T(KC_S),      LCTL_T(KC_T),      LSFT_T(KC_H),      KC_D,              KC_M,              LSFT_T(KC_N),      LCTL_T(KC_A),      LALT_T(KC_I),      LGUI_T(KC_O),
+    KC_SLSH,           ALGR_T(KC_V),      KC_G,              KC_P,              KC_B,              KC_X,              KC_W,              KC_DOT,            ALGR_T(KC_DOT),    KC_DEL,
+    KC_NP,             KC_NP,             LT(MEDR, KC_ESC),  LT(NAVR, KC_E),    LT(MOUR, KC_BSPC), LT(NSSL, KC_ENT),  LT(NSL, KC_SPC),   LT(FUNL, KC_TAB),  KC_NP,             KC_NP
+  ),
 #elif defined MIRYOKU_ALPHAS_WORKMAN
   [BASE] = LAYOUT_miryoku(
     KC_Q,              KC_D,              KC_R,              KC_W,              KC_B,              KC_J,              KC_F,              KC_U,              KC_P,              KC_QUOT,
