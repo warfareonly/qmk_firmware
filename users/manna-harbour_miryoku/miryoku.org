@@ -183,6 +183,39 @@ layer to avoid having to layer change mid edit and to enable auto-repeat.
 | ENT  | BSPC | DEL  | NP   | NP   |
 
 
+
+**** vi-Style Navigation
+
+To select, append ~MIRYOKU_NAV=VI~ to the ~make~ command line when building.
+
+
+***** Navigation (NAVR)
+
+#+NAME: navr-vi
+| AGIN | UNDO | CUT  | COPY | PSTE |
+| LEFT | DOWN | UP   | RGHT | CAPS |
+| HOME | PGDN | PGUP | END  | INS  |
+| ENT  | BSPC | DEL  | X_NP | X_NP |
+
+
+***** Mouse (MOUR)
+
+#+NAME: mour-vi
+|      |      |      |      |      |
+| MS_L | MS_D | MS_U | MS_R |      |
+| WH_L | WH_D | WH_U | WH_R |      |
+| BTN1 | BTN3 | BTN2 | X_NP | X_NP |
+
+
+***** Media (MEDR)
+
+#+NAME: medr-vi
+| RGB_TOG | RGB_MOD | RGB_HUI | RGB_SAI | RGB_VAI |
+| MPRV    | VOLD    | VOLU    | MNXT    |         |
+|         |         |         |         |         |
+| MSTP    | MPLY    | MUTE    | X_NP    | X_NP    |
+
+
 *** Mouse (MOUR)
 
 Secondary RH layer is mouse emulation.  Mouse movement mirrors cursor navigation
@@ -241,6 +274,12 @@ Dot is duplicated from the base layer for convenience.
 Secondary LH layer has shifted symbols in the same locations to reduce chording
 when using mods with shifted symbols.  Automatically generated from unshifted
 table.
+
+#+NAME: nssl
+| {    | &    | * | ( | }    |
+| :    | $    | % | ^ | +    |
+| ~    | !    | @ | # | PIPE |
+| X_NP | X_NP | ( | ) | _    |
 
 
 *** Function and System (FUNL)
@@ -502,8 +541,6 @@ Header for tangled src files.
 generated from users/manna-harbour_miryoku/miryoku.org  -*- buffer-read-only: t -*-
 #+END_SRC
 
-#+RESULTS: header
-
 
 * Subset Mapping
 
@@ -573,13 +610,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #else
 <<table-layout-taphold(layer_name="BASE", tap_table=colemakdhm, hold_table=hold)>>,
 #endif
+#if defined MIRYOKU_NAV_VI
+<<table-layout-half(layer_name="NAVR", half_table=navr-vi)>>,
+<<table-layout-half(layer_name="MOUR", half_table=mour-vi)>>,
+<<table-layout-half(layer_name="MEDR", half_table=medr)>>,
+#else
 <<table-layout-half(layer_name="NAVR", half_table=navr)>>,
 <<table-layout-half(layer_name="MOUR", half_table=mour)>>,
-<<table-layout-full(layer_name="MBO", table=mbo, fill="TRNS")>>,
 <<table-layout-half(layer_name="MEDR", half_table=medr)>>,
+#endif
+<<table-layout-full(layer_name="MBO", table=mbo, fill="TRNS")>>,
 <<table-layout-half(layer_name="FUNL", half_table=funl)>>,
 <<table-layout-half(layer_name="NSL", half_table=nsl)>>,
-<<table-layout-half(layer_name="NSSL", half_table=nsl, shift="true")>>
+<<table-layout-half(layer_name="NSSL", half_table=nssl, shift="true")>>
 };
 #+END_SRC
 
