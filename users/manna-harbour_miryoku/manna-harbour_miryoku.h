@@ -16,4 +16,4 @@
 #define KC_SAI RGB_SAI
 #define KC_VAI RGB_VAI
 
-enum layers { BASE, MBO, MEDR, NAVR, MOUR, NSSL, NSL, FUNL };
+enum layers { BASE, MBO, MEDR, NAVR, MOUR, NSSL, NSL, FUNL, HC };

@@ -46,24 +46,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 };
 
-uint32_t layer_state_set_user(uint32_t state){
-  rgblight_setrgb(RGB_ORANGE);
-  return state;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  rgblight_setrgb(RGB_ORANGE);
-  return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-    rgblight_sethsv_noeeprom_orange();
-}
+//uint32_t layer_state_set_user(uint32_t state){
+//  rgblight_setrgb(RGB_ORANGE);
+//  return state;
+//}
+//
+//void matrix_init_user(void) {
+//
+//}
+//
+//void matrix_scan_user(void) {
+//
+//}
+//
+//bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//  rgblight_setrgb(RGB_ORANGE);
+//  return true;
+//}
+//
+//void led_set_user(uint8_t usb_led) {
+//    rgblight_sethsv_noeeprom_orange();
+//}
