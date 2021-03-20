@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    John M Daly
-#define PRODUCT         SteamVan rev1
-#define DESCRIPTION     An open hardware forty percent PCB
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0x0000
+#define DEVICE_VER 0x0001
+#define MANUFACTURER Bharat
+#define PRODUCT Hookah rev1
+#define DESCRIPTION Absolem - inspired Ferris
 
 /* Address for jumping to bootloader on STM32 chips. */
 /* It is chip dependent, the correct number can be looked up here:
@@ -34,13 +34,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define STM32_BOOTLOADER_ADDRESS 0x1FFFD800
 
 /* key matrix size */
-#define MATRIX_ROWS 4 //B
-#define MATRIX_COLS 10 //B
+#define MATRIX_ROWS 4   // B
+#define MATRIX_COLS 10  // B
 
 /* ROWS: Top to bottom, COLS: Left to right
-*/
-#define MATRIX_ROW_PINS { A10, A9, A8, A3 } //B
-#define MATRIX_COL_PINS { B5, B4, B6, B7, B9, A4, A5, A6, B15, B14 } //B
+ */
+#define MATRIX_ROW_PINS \
+    { A10, A9, A8, A3 }  // B
+#define MATRIX_COL_PINS \
+    { B5, B4, B6, B7, B9, A4, A5, A6, B15, B14 }  // B
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL */
@@ -58,8 +60,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 1
 #define DRIVER_LED_TOTAL RGBLED_NUM
 
+#define RGBLIGHT_DEFAULT_HUE 127
+/* #define RGBLIGHT_DEFAULT_SAT UINT8_MAX */
+#define RGBLIGHT_DEFAULT_VALUE 45
+#define RGBLIGHT_DEFAULT_SAT UINT8_MAX
+
 #define WS2812_PWM_DRIVER PWMD2
 #define WS2812_PWM_CHANNEL 1
-#define WS2812_PWM_PAL_MODE 2
+#define WS2812_PWM_PAL_MODE 1
 #define WS2812_DMA_STREAM STM32_DMA1_STREAM2
-#define WS2812_DMA_CHANNEL 2
+#define WS2812_DMA_CHANNEL 1
