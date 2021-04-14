@@ -117,30 +117,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_X_NP, KC_X_NP, KC_LPRN, KC_RPRN, KC_UNDS, KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
   ),
   [HC] = LAYOUT_miryoku(
-    KC_LBRC, LGUI(KC_7),    LGUI(KC_8),    LGUI(KC_9),    KC_RBRC, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
-    KC_SCLN, LGUI(KC_4),    LGUI(KC_5),    LGUI(KC_6),    KC_EQL,  KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-    KC_GRV,  LGUI(KC_1),    LGUI(KC_2),    LGUI(KC_3),    KC_BSLS, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
+    RGB_VAI, LGUI(KC_7),    LGUI(KC_8),    LGUI(KC_9),    KC_RBRC, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
+    RGB_HUI, LGUI(KC_4),    LGUI(KC_5),    LGUI(KC_6),    KC_EQL,  KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    RGB_TOG,  LGUI(KC_1),    LGUI(KC_2),    LGUI(KC_3),    KC_BSLS, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
     KC_NP,   KC_NP,   KC_DOT,  KC_0,    KC_MINS, KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
   )
 };
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case LM(NSL, MOD_LGUI):
-            if (record->tap.count > 0) {
-                if (record->event.pressed) {
-                    tap_code16(KC_SLSH);
-                }
-                // do not continue with default tap action
-                // if the LM was pressed or released, but not held
-                return false;
-            }
-	    return true;
-            break;
-        default:
-            return true;
-    }
-}
 
 
