@@ -30,15 +30,16 @@
 #define MATRIX_COLS 6
 
 #define DIRECT_PINS { \
-	{B0, B1, B6, B7, B8, B9}, \
-	{B12, B13, B14, B15, A2, A3}, \
-	{A4, A5, A6, A7, B4, B5}, \
-	{NO_PIN, NO_PIN, NO_PIN, B10, A0, A1} \
+	{B12, B13, B14, B15, B10, B1}, \
+	{B0, A7, A6, A5, A4, B4}, \
+	{A3, B5, A2, B6, A1, B7}, \
+	{NO_PIN, NO_PIN, NO_PIN, A0, B8, B9} \
 }
 
 #define UNUSED_PINS
 
 
+#define MASTER_LEFT
 #define SOFT_SERIAL_PIN A15
 #define SELECT_SOFT_SERIAL_SPEED 1
 
