@@ -39,7 +39,7 @@
 #define UNUSED_PINS
 
 
-#define MASTER_LEFT
+#define MASTER_RIGHT
 #define SOFT_SERIAL_PIN A15
 #define SELECT_SOFT_SERIAL_SPEED 1
 
