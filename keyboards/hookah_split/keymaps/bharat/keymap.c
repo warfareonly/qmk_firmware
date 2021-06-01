@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NSL] = LAYOUT_miryoku(
     TD(B_S_C(LBRC)), TD(B_S_C(7)),    TD(B_S_C(8)),    TD(B_S_C(9)),   TD(B_S_C(RBRC)), KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
     TD(B_S_C(SCLN)), TD(B_S_C(4)),    TD(B_S_C(5)),    TD(B_S_C(6)),   TD(B_S_C(EQL)),  KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-    TD(B_S_C(GRV)),  TD(B_S_C(2)),    TD(B_S_C(2)),    TD(B_S_C(3)),   TD(B_S_C(BSLS)), KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
+    TD(B_S_C(GRV)),  TD(B_S_C(1)),    TD(B_S_C(2)),    TD(B_S_C(3)),   TD(B_S_C(BSLS)), KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
     KC_NP,  	     KC_NP,           TD(B_S_C(DOT)),  TD(B_S_C(0)),   TD(B_S_C(MINS)), KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
   ),
   [NSSL] = LAYOUT_miryoku(
