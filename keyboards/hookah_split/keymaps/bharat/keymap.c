@@ -1,33 +1,51 @@
 #include "keymap.h"
 
-// Bharat-Double-Tap macro. 
-#define BDT(x,y) ACTION_TAP_DANCE_DOUBLE(KC_ ## x, KC_ ## y)
+// Bharat-SFT-CODE
+#define B_S_C(x) TD_ ## x ## _ ## SFT
+// Bharat-TAP-Shifted
+#define B_T_S(x) [B_S_C(x)] = ACTION_TAP_DANCE_DOUBLE(KC_ ## x, LSFT(KC_ ## x))
 
-#define B_TAP_ENTRY(x,y) [TD_ ## x ## _ ## y] = BDT(x,y) 
 enum {
-	TD_1_EXCL = 0,
-	TD_2_AT,
-	TD_3_HASH,
-	TD_4_DLR,
-	TD_5_PERC,
-	TD_6_CIRC,
-	TD_7_AMPR,
-	TD_8_ASTR,
-	TD_9_LPRN,
+	B_S_C(LBRC),
+	B_S_C(SCLN),
+	B_S_C(GRV), 
+	B_S_C(DOT),
+	B_S_C(7),
+	B_S_C(4),
+	B_S_C(1),
+	B_S_C(0),
+	B_S_C(8),
+	B_S_C(5),
+	B_S_C(2),
+	B_S_C(MINS),
+	B_S_C(9),
+	B_S_C(6),
+	B_S_C(3),
+	B_S_C(RBRC),
+	B_S_C(EQL),
+	B_S_C(BSLS),
+};
+qk_tap_dance_action_t tap_dance_actions[]={
+	B_T_S(LBRC),
+	B_T_S(SCLN),
+	B_T_S(GRV), 
+	B_T_S(DOT),
+	B_T_S(7),
+	B_T_S(4),
+	B_T_S(1),
+	B_T_S(0),
+	B_T_S(8),
+	B_T_S(5),
+	B_T_S(2),
+	B_T_S(MINS),
+	B_T_S(9),
+	B_T_S(6),
+	B_T_S(3),
+	B_T_S(RBRC),
+	B_T_S(EQL),
+	B_T_S(BSLS),
 };
 
-qk_tap_dance_action_t tap_dance_actions[]={
-	[TD_1_EXCL] = BDT(1, EXLM),
-	[TD_2_AT] = BDT(2, AT),
-	// [TD_3_HASH] = BDT(3,HASH),
-	B_TAP_ENTRY(3,HASH),
-	B_TAP_ENTRY(4,DLR),
-	B_TAP_ENTRY(5,PERC),
-	B_TAP_ENTRY(6,CIRC),
-	B_TAP_ENTRY(7,AMPR),
-	B_TAP_ENTRY(8,ASTR),
-	B_TAP_ENTRY(9,LPRN),
-};
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_miryoku(
     KC_Q,              KC_W,              KC_F,              KC_P,              KC_B,              KC_J,              KC_L,              KC_U,              KC_Y,              KC_QUOT,
@@ -88,10 +106,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NP,   KC_NP,   KC_APP,  KC_SPC,  KC_TAB,  KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
   ),
   [NSL] = LAYOUT_miryoku(
-    KC_LBRC, TD(TD_7_AMPR),    TD(TD_8_ASTR),    TD(TD_9_LPRN),    KC_RBRC, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
-    KC_SCLN, TD(TD_4_DLR),    TD(TD_5_PERC),    TD(TD_6_CIRC),    KC_EQL,  KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-    KC_GRV,  TD(TD_1_EXCL) ,    TD(TD_2_AT),    TD(TD_3_HASH),    KC_BSLS, KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
-    KC_NP,   KC_NP,   KC_DOT,  KC_0,    KC_MINS, KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
+    TD(B_S_C(LBRC)), TD(B_S_C(7)),    TD(B_S_C(8)),    TD(B_S_C(9)),   TD(B_S_C(RBRC)), KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
+    TD(B_S_C(SCLN)), TD(B_S_C(4)),    TD(B_S_C(5)),    TD(B_S_C(6)),   TD(B_S_C(EQL)),  KC_NA,   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    TD(B_S_C(GRV)),  TD(B_S_C(2)),    TD(B_S_C(2)),    TD(B_S_C(3)),   TD(B_S_C(BSLS)), KC_NA,   KC_NA,   KC_NA,   KC_ALGR, KC_NA,
+    KC_NP,  	     KC_NP,           TD(B_S_C(DOT)),  TD(B_S_C(0)),   TD(B_S_C(MINS)), KC_NA,   KC_NA,   KC_NA,   KC_NP,   KC_NP
   ),
   [NSSL] = LAYOUT_miryoku(
     KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR, KC_NA,   KC_NA,   KC_NA,   KC_NA,   KC_RST,
